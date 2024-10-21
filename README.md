@@ -1,6 +1,6 @@
-﻿# NutrIA 🥗
+﻿# NutriAPI 🥗
 
-**NutrIA** é uma aplicação ASP.NET Core desenvolvida como um projeto de estudos para gerenciar nutricionistas e seus pacientes. A aplicação utiliza **Entity Framework Core** com **PostgreSQL** para a persistência de dados e **Swagger** para a documentação da API.
+**NutriAPI** é uma aplicação ASP.NET Core desenvolvida como um projeto de estudos para gerenciar nutricionistas e seus pacientes. A aplicação utiliza **Entity Framework Core** com **PostgreSQL** para a persistência de dados e **Swagger** para a documentação da API.
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -22,7 +22,7 @@ Certifique-se de que seu ambiente atenda aos seguintes requisitos:
 
    ```bash
    git clone https://github.com/lopesleo/NutriAPI.git
-   cd nutria
+   cd NutriAPI
    ```
 
 2. Configure a string de conexão no arquivo `appsettings.json`:
@@ -30,7 +30,7 @@ Certifique-se de que seu ambiente atenda aos seguintes requisitos:
    ```json
    {
      "ConnectionStrings": {
-       "DefaultConnection": "Host=localhost;Database=nutria;Username=seu-usuario;Password=sua-senha"
+       "DefaultConnection": "Host=localhost;Database=NutriAPI;Username=seu-usuario;Password=sua-senha"
      }
    }
    ```
