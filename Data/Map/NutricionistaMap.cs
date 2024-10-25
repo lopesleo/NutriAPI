@@ -4,9 +4,9 @@ using NutrIA.Models;
 
 namespace NutrIA.Data.Map
 {
-    public class NutricionistaMap : IEntityTypeConfiguration<NutricionistaModel>
+    public class NutricionistaMap : IEntityTypeConfiguration<Nutricionista>
     {
-        public void Configure(EntityTypeBuilder<NutricionistaModel> builder)
+        public void Configure(EntityTypeBuilder<Nutricionista> builder)
         {
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Nome).HasMaxLength(100).IsRequired();

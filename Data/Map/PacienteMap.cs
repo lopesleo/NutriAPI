@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NutrIA.Models;
 
-public class PacienteMap : IEntityTypeConfiguration<PacienteModel>
+public class PacienteMap : IEntityTypeConfiguration<Paciente>
 {
-    public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<PacienteModel> builder)
+    public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Paciente> builder)
     {
         builder.HasKey(p => p.Id);
         builder.Property(p => p.Nome).HasMaxLength(100).IsRequired();

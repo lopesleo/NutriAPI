@@ -23,12 +23,12 @@ namespace NutrIA.Repositorios
             await _context.SaveChangesAsync();
             return true;
         }
-        public async Task<NutricionistaModel> BuscarPorId(int id)
+        public async Task<Nutricionista> BuscarPorId(int id)
         {
             var nutricionista = await _context.Nutricionista.FindAsync(id);
-            return nutricionista ?? throw new Exception($"Nutricionista com id {id} não encontrado.");
+            return nutricionista ?? throw new KeyNotFoundException($"Nutricionista com id {id} não encontrado.");
         }
-        public async Task<NutricionistaModel> Atualizar(NutricionistaModel nutricionista, int id)
+        public async Task<Nutricionista> Atualizar(Nutricionista nutricionista, int id)
         {
             var nutricionistaPorId = await _context.Nutricionista.FindAsync(id) ?? throw new Exception($"Nutricionista com id {id} não encontrado.");
             nutricionistaPorId.Nome = nutricionista.Nome;
@@ -42,14 +42,14 @@ namespace NutrIA.Repositorios
             return nutricionistaPorId;
         }
 
-        public async Task<NutricionistaModel> Cadastrar(NutricionistaModel nutricionista)
+        public async Task<Nutricionista> Cadastrar(Nutricionista nutricionista)
         {
             _context.Add(nutricionista);
             await _context.SaveChangesAsync();
             return nutricionista;
         }
 
-        public async Task<List<PacienteModel>> ListarPacientes(int nutricionistaID)
+        public async Task<List<Paciente>> ListarPacientes(int nutricionistaID)
         {
             return await _pacienteRepositorio.BuscarPacientesPorNutricionista(nutricionistaID);
         }

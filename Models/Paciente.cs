@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace NutrIA.Models
 {
-    public class PacienteModel
+    public class Paciente
     {
         [Key]
         public int Id { get; set; }
@@ -36,11 +36,9 @@ namespace NutrIA.Models
         public string? RestricoesAlimentares { get; set; }
         public string? Notas { get; set; }
 
-        public int? NutricionistaId { get; set; } // ID do nutricionista
-        [JsonIgnore]
-        public NutricionistaModel? Nutricionista { get; set; } // Navegação para o nutricionista
+        public int NutricionistaId { get; set; } 
+        public Nutricionista? Nutricionista { get; set; } 
 
-        [NotMapped]
         public int Idade
         {
             get

@@ -13,24 +13,22 @@ namespace NutrIA.Repositorios
         {
             _context = dbContext;
         }
-        public async Task<List<PacienteModel>> ListarTodosPacientes()
+        public async Task<List<Paciente>> ListarTodosPacientes()
         {
             return await _context.Paciente.ToListAsync();
         }
 
-        public async Task<List<PacienteModel>> BuscarPacientesPorNutricionista (int nutricionistaID)
+        public async Task<List<Paciente>> BuscarPacientesPorNutricionista (int nutricionistaID)
         {
             return await _context.Paciente.Where(p => p.NutricionistaId == nutricionistaID).ToListAsync();
         }
 
-        public async Task<PacienteModel> BuscarPacientePorId(int id)
+        public async Task<Paciente> BuscarPacientePorId(int id)
         {
             return await _context.Paciente.FirstOrDefaultAsync(p => p.Id == id);
         }
 
-
-
-        public async Task<PacienteModel> Adicionar(PacienteModel paciente)
+        public async Task<Paciente> Adicionar(Paciente paciente)
         {
             _context.Paciente.Add(paciente);
            await _context.SaveChangesAsync();
@@ -47,7 +45,7 @@ namespace NutrIA.Repositorios
         }
 
     
-        public async Task<PacienteModel> Atualizar(PacienteModel paciente, int id)
+        public async Task<Paciente> Atualizar(Paciente paciente, int id)
         {
             var pacientePorID = await BuscarPacientePorId(id) ?? throw new Exception($"Paciente id {id} não encontrado"); ;
 

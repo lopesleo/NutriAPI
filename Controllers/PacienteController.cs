@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NutrIA.Data;
 using NutrIA.Models;
@@ -9,42 +10,38 @@ namespace NutrIA.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PacienteController : ControllerBase
+    public class PacienteController(IPacienteRepositorio pacienteRepositorio) : ControllerBase
     {
-        private readonly IPacienteRepositorio _pacienteRepositorio;
-
-        public PacienteController(IPacienteRepositorio pacienteRepositorio)
-        {
-            _pacienteRepositorio = pacienteRepositorio;
-        }
+        private readonly IPacienteRepositorio _pacienteRepositorio = pacienteRepositorio;
+        
         //get api/pacientes
 
         [HttpGet]
-        public async Task<ActionResult<List<PacienteModel>>> ListarTodosPacientes()
+        public async Task<ActionResult<List<Paciente>>> ListarTodosPacientes()
         {
 
-            List<PacienteModel> pacientes =  await _pacienteRepositorio.ListarTodosPacientes();
+            List<Paciente> pacientes =  await _pacienteRepositorio.ListarTodosPacientes();
             return Ok(pacientes);
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<PacienteModel>> BuscarPorId(int id)
+        public async Task<ActionResult<Paciente>> BuscarPorId(int id)
         {
 
-            PacienteModel paciente = await _pacienteRepositorio.BuscarPacientePorId(id);
+            Paciente paciente = await _pacienteRepositorio.BuscarPacientePorId(id);
 
             
             return Ok(paciente);
         }
         [HttpPost]
-        public async Task<ActionResult<PacienteModel>> Cadastrar([FromBody] PacienteModel paciente)
+        public async Task<ActionResult<Paciente>> Cadastrar([FromBody] Paciente paciente)
         {
             
 
-            PacienteModel _paciente = await _pacienteRepositorio.Adicionar(paciente);
+            Paciente _paciente = await _pacienteRepositorio.Adicionar(paciente);
             return Ok(_paciente);
         }
         [HttpPut("{id}")]
-        public async Task<ActionResult<PacienteModel>> Atualizar([FromBody] PacienteModel paciente, int id)
+        public async Task<ActionResult<Paciente>> Atualizar([FromBody] Paciente paciente, int id)
         {
             if (paciente == null)
             {
@@ -58,7 +55,7 @@ namespace NutrIA.Controllers
 
             try
             {
-                PacienteModel _paciente = await _pacienteRepositorio.Atualizar(paciente, id);
+                Paciente _paciente = await _pacienteRepositorio.Atualizar(paciente, id);
                 return Ok(_paciente);
             }
             catch (DbUpdateException ex)
