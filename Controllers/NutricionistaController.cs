@@ -23,7 +23,7 @@ namespace NutrIA.Controllers
         private readonly INutricionistaService _nutricionistaService = nutricionistaService;
         private readonly IMapper _mapper = mapper;
 
-        [HttpGet("{id}/listar-pacientes")]
+        [HttpGet("{id}/pacientes")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Paciente>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
