@@ -12,8 +12,8 @@ using NutrIA.Data;
 namespace NutrIA.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241020045746_AddNewColumns")]
-    partial class AddNewColumns
+    [Migration("20241027235048_initialCreate")]
+    partial class initialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace NutrIA.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("NutrIA.Models.NutricionistaModel", b =>
+            modelBuilder.Entity("NutrIA.Models.Nutricionista", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -42,7 +42,7 @@ namespace NutrIA.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("DataNascimento")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -62,7 +62,7 @@ namespace NutrIA.Migrations
                     b.ToTable("Nutricionista");
                 });
 
-            modelBuilder.Entity("NutrIA.Models.PacienteModel", b =>
+            modelBuilder.Entity("NutrIA.Models.Paciente", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -74,7 +74,7 @@ namespace NutrIA.Migrations
                         .HasColumnType("double precision");
 
                     b.Property<DateTime>("DataNascimento")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -88,7 +88,7 @@ namespace NutrIA.Migrations
                     b.Property<string>("Notas")
                         .HasColumnType("text");
 
-                    b.Property<int?>("NutricionistaId")
+                    b.Property<int>("NutricionistaId")
                         .HasColumnType("integer");
 
                     b.Property<double>("Peso")
@@ -112,16 +112,48 @@ namespace NutrIA.Migrations
                     b.ToTable("Paciente");
                 });
 
-            modelBuilder.Entity("NutrIA.Models.PacienteModel", b =>
+            modelBuilder.Entity("NutrIA.Models.Usuario", b =>
                 {
-                    b.HasOne("NutrIA.Models.NutricionistaModel", "Nutricionista")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<byte[]>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("bytea");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .IsRequired()
+                        .HasColumnType("bytea");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Usuario");
+                });
+
+            modelBuilder.Entity("NutrIA.Models.Paciente", b =>
+                {
+                    b.HasOne("NutrIA.Models.Nutricionista", "Nutricionista")
                         .WithMany("Pacientes")
-                        .HasForeignKey("NutricionistaId");
+                        .HasForeignKey("NutricionistaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Nutricionista");
                 });
 
-            modelBuilder.Entity("NutrIA.Models.NutricionistaModel", b =>
+            modelBuilder.Entity("NutrIA.Models.Nutricionista", b =>
                 {
                     b.Navigation("Pacientes");
                 });

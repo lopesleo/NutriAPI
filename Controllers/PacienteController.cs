@@ -26,10 +26,7 @@ namespace NutrIA.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Paciente>> BuscarPorId(int id)
         {
-
             Paciente paciente = await _pacienteRepositorio.BuscarPacientePorId(id);
-
-            
             return Ok(paciente);
         }
         [HttpPost]

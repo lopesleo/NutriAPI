@@ -14,11 +14,7 @@ namespace NutrIA.Services
         public async Task<List<Paciente>> ListarPacientesPorNutricionista(int nutricionistaId)
         {
             // Verifica se o nutricionista existe
-            var nutricionista = await _nutricionistaRepositorio.BuscarPorId(nutricionistaId);
-            if (nutricionista == null)
-            {
-                throw new Exception($"Nutricionista com id {nutricionistaId} não encontrado.");
-            }
+            var nutricionista = await _nutricionistaRepositorio.BuscarPorId(nutricionistaId) ?? throw new Exception($"Nutricionista com id {nutricionistaId} não encontrado.");
 
             // Busca pacientes pelo ID do nutricionista
             return await _pacienteRepositorio.BuscarPacientesPorNutricionista(nutricionistaId);

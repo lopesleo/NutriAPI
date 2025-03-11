@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NutrIA.Models
 {
@@ -31,5 +31,9 @@ namespace NutrIA.Models
         public DateTime DataNascimento { get; set; }
 
         public List<Paciente> Pacientes { get; set; } = new List<Paciente>();
+
+        [ForeignKey("Usuario")]
+        public int UsuarioId { get; set; }
+        public required Usuario Usuario { get; set; }
     }
 }
